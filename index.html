@@ -26,7 +26,7 @@
     --radius: 26px;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden; width:100%;}
   body{
     margin:0;
     font-family:'Work Sans', sans-serif;
@@ -34,6 +34,7 @@
     background:var(--cream);
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
+    max-width:100vw;
   }
   h1,h2,h3,h4{
     font-family:'Fraunces', serif;
@@ -66,10 +67,12 @@
     background:rgba(251,247,239,0.82);
     backdrop-filter:blur(14px);
     border-bottom:1px solid var(--line);
+    flex-wrap:nowrap;
+    gap:12px;
   }
   .nav-brand{display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-weight:600; font-size:1.05rem; color:var(--teal);}
   .nav-brand .dot{width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 30% 30%, #FBEFC6, #E9A6C0);}
-  .nav-links{display:flex; gap:24px; align-items:center; flex-wrap:wrap;}
+  .nav-links{display:flex; gap:24px; align-items:center; flex-wrap:nowrap; flex-shrink:0;}
   .nav-links a{
     font-size:0.85rem; text-decoration:none; color:var(--ink-soft); font-weight:500;
     position:relative; padding:4px 0; white-space:nowrap;
@@ -87,10 +90,11 @@
   }
   .nav-cta:hover{transform:translateY(-2px);}
   .nav-toggle{display:none;}
-  @media (max-width: 880px){
+  @media (max-width: 1000px){
     .nav-links{
       position:fixed; inset:64px 0 0 0; background:var(--cream); flex-direction:column; padding:30px 8vw;
       transform:translateX(100%); transition:transform .35s ease; gap:22px; overflow-y:auto;
+      z-index:99;
     }
     .nav-links.open{transform:translateX(0);}
     .nav-toggle{display:block; background:none; border:none; font-size:1.5rem; cursor:pointer; color:var(--teal);}
@@ -107,23 +111,27 @@
   @keyframes heroShift{
     0%{background-position:0% 30%;} 50%{background-position:100% 70%;} 100%{background-position:0% 30%;}
   }
-  .blob{position:absolute; border-radius:50%; filter:blur(2px); opacity:0.55; animation:float 14s ease-in-out infinite;}
-  .blob.b1{width:260px;height:260px; background:radial-gradient(circle at 30% 30%, #ffffff, #F7DCE6); top:8%; left:6%; animation-duration:16s;}
-  .blob.b2{width:180px;height:180px; background:radial-gradient(circle at 30% 30%, #ffffff, #D3E6F5); bottom:12%; left:12%; animation-duration:13s; animation-delay:1s;}
-  .blob.b3{width:220px;height:220px; background:radial-gradient(circle at 30% 30%, #ffffff, #D9F0E1); top:14%; right:8%; animation-duration:19s; animation-delay:2s;}
-  .blob.b4{width:140px;height:140px; background:radial-gradient(circle at 30% 30%, #ffffff, #FBEFC6); bottom:18%; right:14%; animation-duration:11s;}
+  .blob{position:absolute; border-radius:50%; opacity:0.35; pointer-events:none; z-index:0; animation:float 14s ease-in-out infinite;}
+  .blob.b1{width:260px;height:260px; background:radial-gradient(circle at 30% 30%, #ffffff, #F7DCE6); top:4%; left:2%; animation-duration:16s;}
+  .blob.b2{width:180px;height:180px; background:radial-gradient(circle at 30% 30%, #ffffff, #D3E6F5); bottom:6%; left:4%; animation-duration:13s; animation-delay:1s;}
+  .blob.b3{width:220px;height:220px; background:radial-gradient(circle at 30% 30%, #ffffff, #D9F0E1); top:6%; right:2%; animation-duration:19s; animation-delay:2s;}
+  .blob.b4{width:140px;height:140px; background:radial-gradient(circle at 30% 30%, #ffffff, #FBEFC6); bottom:8%; right:4%; animation-duration:11s;}
+  @media (max-width:760px){
+    .blob{display:none;}
+  }
   @keyframes float{
     0%,100%{transform:translateY(0) translateX(0);}
     50%{transform:translateY(-26px) translateX(14px);}
   }
-  .hero-eyebrow{color:var(--teal); font-weight:700; margin-bottom:22px;}
+  .hero-eyebrow{color:var(--teal); font-weight:700; margin-bottom:22px; position:relative; z-index:2;}
   .hero h1{
     font-size:clamp(2.4rem, 6vw, 4.4rem); color:var(--teal); max-width:18ch; margin:0 auto 24px;
-    letter-spacing:-0.01em;
+    letter-spacing:-0.01em; position:relative; z-index:2;
   }
   .hero h1 em{font-style:italic; color:var(--plum);}
   .hero p.sub{
     max-width:52ch; margin:0 auto 38px; font-size:1.08rem; color:var(--ink-soft); line-height:1.6;
+    position:relative; z-index:2;
   }
   .hero-ctas{display:flex; gap:16px; flex-wrap:wrap; justify-content:center; position:relative; z-index:2;}
   .btn{
